@@ -68,7 +68,7 @@ const parseAndExecute = (parsedArgs) => {
             executePrintImage(parsedArgs);
             break;
         default:
-            showHelp('The mode parameter must be one of compress or decompress');
+            showHelp('The mode parameter must be one of compress, decompress, or display');
             return EXECUTION_RETURN_ERROR_PARAMS;
     }
     return EXECUTION_RETURN_SUCCESS;
