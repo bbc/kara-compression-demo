@@ -2,7 +2,7 @@ const { checkIntParam, checkFileParam } = require('./paramHelper');
 const chalk = require('chalk');
 
 /**
- * Display to the screen the image represented by comma separated string,
+ * Display to the screen the uncompressed image represented by comma separated string,
  * with dimensions width x height.
  * @param {string} image 
  * @param {int} width 
@@ -57,7 +57,7 @@ const checkParamsForDisplay = parsedArgs => {
     } else {
         return { valid: false, message: 'The shades value must be a whole number between 2 and 16'}
     }
-    
+
     //Check width is correct
     const widthCheck = checkIntParam(parsedArgs.width, 1, 1000);
     if (widthCheck.valid) {
