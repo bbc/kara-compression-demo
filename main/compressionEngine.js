@@ -51,7 +51,7 @@ const decompress = ({inputImage, shades}) => {
     for (var i = 0 ; i < len ; i++) {
         if (shades === 2) {
             //Check the input is in the range 0-f
-            if (!/^([a-fA-F0-9])$/.test(compressedImage[i])) {
+            if (!/^([a-fA-F0-9]*)$/.test(compressedImage[i])) {
                 throw `Invalid compressed input ${compressedImage[i]}`;
             }
             count = parseInt(compressedImage[i], 16)
@@ -61,6 +61,7 @@ const decompress = ({inputImage, shades}) => {
             currentColor = compressedImage[i].substring(0,1);
             count = parseInt(compressedImage[i].substring(1), 16);
             uncompressedImage.push(...(currentColor.toString().repeat(count).split('')));
+
         }
     }
 
