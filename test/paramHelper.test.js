@@ -1,4 +1,4 @@
-const { checkIntParam } = require('../paramHelper');
+const { checkIntParam } = require('../main/paramHelper');
 
 test('Int out of range', async () => {
     //Too big
