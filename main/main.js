@@ -26,9 +26,9 @@ const showIntro = () => {
         console.log(`🔥 ${chalk.red.bold.underline(message)}
         `)
     }
-    console.log(`ℹ️  ${chalk.green('Usage: ')} ${chalk.cyan.bold('node index.js')} ${chalk.cyan('-mode [compress|decompress] -input [filepath] -shades [2-16] -width [number] -height [number]')}`);
+    console.log(`ℹ️  ${chalk.green('Usage: ')} ${chalk.cyan.bold('node index.js')} ${chalk.cyan('-mode [compress|decompress|display] -input [filepath] -shades [2-16] -width [number] -height [number]')}`);
     console.log(`
-        ${chalk.green('mode:\t')} ${chalk.cyan('compress or decompress - ')} ${chalk.white('States whether we want to compress or decompress our input')}
+        ${chalk.green('mode:\t')} ${chalk.cyan('compress, decompress or display - ')} ${chalk.white('States whether we want to compress / decompress or display the input')}
         ${chalk.green('input:\t')} ${chalk.cyan('file path - ')} ${chalk.white('Path to the input file')}
         ${chalk.green('shades:\t')} ${chalk.cyan('integer between 2-16 - ')} ${chalk.white('How many shades of grey should we be processing')}
         ${chalk.green('width:\t')} ${chalk.cyan('integer - ')} ${chalk.white('The pixel width of the input image')}
