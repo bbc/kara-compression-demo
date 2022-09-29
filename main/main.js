@@ -1,6 +1,5 @@
 'use strict';
 const chalk = require('chalk');
-const parsedArgs = require('yargs').argv;
 
 const { executeCompression, executeDecompression } = require('./compressionRunner');
 const { checkIntParam } = require('./paramHelper');
@@ -39,10 +38,11 @@ const showIntro = () => {
 }
 
 /**
- * 
- * @returns execution return code
+ * Parses the params and calls the appropriate compress/decompress runner
+ * @param {dictionary} parsedArgs 
+ * @returns Execution return code
  */
-const parseAndExecute = () => {
+const parseAndExecute = (parsedArgs) => {
 
     if (!(parsedArgs.mode && parsedArgs.input && parsedArgs.shades && parsedArgs.width && parsedArgs.height)) {
         showHelp('All parameters are mandatory');
@@ -98,9 +98,10 @@ const parseAndExecute = () => {
 /**
  * This is where execution starts
  */
-const main = () => {
+const main = (parsedArgs) => {
+    console.log('parsed args', parsedArgs)
     showIntro();
-    const executionReturnCode = parseAndExecute();
+    const executionReturnCode = parseAndExecute(parsedArgs);
     
     if (executionReturnCode !== EXECUTION_RETURN_SUCCESS) {
         //Exit with the error return code
