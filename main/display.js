@@ -18,7 +18,7 @@ const executePrintImage = ({inputImage, width, height}) => {
  * @param {int between 1 and 16} shade 
  * @returns An html hex color string (including #)
  */
-const shadeToRgb = shade => {
+const shadeToRgb = (pixelColor, shades) => {
     //TODO
     return '#AAAAAA';
 }
@@ -40,6 +40,33 @@ const checkParamsForDisplay = parsedArgs => {
         parsedArgs.inputImage = fileCheck.contents
     } else {
         return { valid: false, message: 'The specified filename cannot be read'}
+    }
+
+    //Check width is correct
+    const widthCheck = checkIntParam(parsedArgs.width, 1, 1000);
+    if (widthCheck.valid) {
+        //copy the value into our execution params
+        parsedArgs.width = widthCheck.parsedValue
+    } else {
+        return { valid: false, message: 'The width value must be a whole number between 1 and 1000'}
+    }
+
+    //Check height is correct
+    const heightCheck = checkIntParam(parsedArgs.height, 1, 1000);
+    if (heightCheck.valid) {
+        //copy the value into our execution params
+        parsedArgs.height = heightCheck.parsedValue
+    } else {
+        return { valid: false, message: 'The height value must be a whole number between 1 and 1000'}
+    }
+
+    //Check shades are correct
+    const shadeCheck = checkIntParam(parsedArgs.shades, 2, 16);
+    if (shadeCheck.valid) {
+        //copy the value into our execution params
+        parsedArgs.shades = shadeCheck.parsedValue
+    } else {
+        return { valid: false, message: 'The shades value must be a whole number between 2 and 16'}
     }
 
     return { valid: true, message: ''}

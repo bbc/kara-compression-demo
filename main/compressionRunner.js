@@ -1,15 +1,21 @@
+const { compress, decompress } = require('./compressionEngine');
 const { checkIntParam, checkFileParam } = require('./paramHelper');
 
-const executeCompression = ({input, shades, width, height}) => {
-    console.log('compression todo');
-    //TODO
-    return '';
+/**
+ * Compresses the image
+ * @param {inputImage}
+ * @returns compressed image as a string
+ */
+const executeCompression = (compressionParams) => {
+    const compressedImageString = compress(compressionParams);
+
+    console.log(compressedImageString);
 }
 
-const executeDecompression = ({input, shades, width, height}) => {
-    console.log('decompression todo');
-    //TODO
-    return '';
+const executeDecompression = (compressionParams) => {
+    const uncompressedImageString = decompress(compressionParams);
+
+    console.log(uncompressedImageString);
 }
 
 /**
@@ -20,8 +26,8 @@ const executeDecompression = ({input, shades, width, height}) => {
 const checkParamsForCompression = parsedArgs => {
     const returnCode = 0;
 
-    if (!(parsedArgs.mode && parsedArgs.input && parsedArgs.shades && parsedArgs.width && parsedArgs.height)) {
-        return { valid: false, message: 'All parameters are mandatory'}
+    if (!(parsedArgs.mode && parsedArgs.input && parsedArgs.shades)) {
+        return { valid: false, message: 'Compression and Decompression require an input image and number of shades'}
     }
 
     //Check shades are correct
@@ -31,24 +37,6 @@ const checkParamsForCompression = parsedArgs => {
         parsedArgs.shades = shadeCheck.parsedValue
     } else {
         return { valid: false, message: 'The shades value must be a whole number between 2 and 16'}
-    }
-
-    //Check width is correct
-    const widthCheck = checkIntParam(parsedArgs.width, 1, 1000);
-    if (widthCheck.valid) {
-        //copy the value into our execution params
-        parsedArgs.width = widthCheck.parsedValue
-    } else {
-        return { valid: false, message: 'The width value must be a whole number between 1 and 1000'}
-    }
-
-    //Check height is correct
-    const heightCheck = checkIntParam(parsedArgs.height, 1, 1000);
-    if (heightCheck.valid) {
-        //copy the value into our execution params
-        parsedArgs.height = heightCheck.parsedValue
-    } else {
-        return { valid: false, message: 'The height value must be a whole number between 1 and 1000'}
     }
 
     //Check the file

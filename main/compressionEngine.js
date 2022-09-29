@@ -1,8 +1,8 @@
-const compressMono = uncompressedImageString => {
+const compressMono = ({inputImage}) => {
     return '';
 }
 
-const decompressMono = compressedImageString => {
+const decompressMono = ({inputImage}) => {
     return '';
 }
 
