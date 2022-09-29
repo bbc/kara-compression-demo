@@ -8,27 +8,23 @@ const EXECUTION_RETURN_ERROR_PARAMS = -1;
 const EXECUTION_RETURN_SUCCESS = 0;
 
 /**
- * Render a nice intro screen.  These are always important :)
+ * Render a nice help screen.
  */
-const showIntro = () => {
-    const message = '   👋 Welcome to the Compression Kata! 👋   ';
-    console.log(chalk.hex('#FFFF00')('*'.repeat(message.length)))
-    console.log(chalk.hex('#FFFF00').bold(message))
-    console.log(chalk.hex('#FFFF00')('*'.repeat(message.length)))
+ const showHelp = errorMessage => {
+    const welcomeMessage = '   👋 Welcome to the Compression Kata! 👋   ';
     console.log();
-}
+    console.log(chalk.hex('#FFFF00')('*'.repeat(welcomeMessage.length)))
+    console.log(chalk.hex('#FFFF00').bold(welcomeMessage))
+    console.log(chalk.hex('#FFFF00')('*'.repeat(welcomeMessage.length)))
+    console.log();
 
-/**
- * Render a nice help screen.  These are even more important :)
- */
- const showHelp = message => {
-    if (message) {
-        console.log(`🔥 ${chalk.red.bold.underline(message)}
+    if (errorMessage) {
+        console.log(`🔥 ${chalk.red.bold.underline(errorMessage)}
         `)
     }
     console.log(`ℹ️  ${chalk.green('Usage: ')} ${chalk.cyan.bold('node index.js')} ${chalk.cyan('-mode [compress|decompress] -input [filepath] -shades [2-16] -width [number] -height [number]')}`);
     console.log(`
-        ${chalk.green('mode:\t')} ${chalk.cyan('compress or decompress - ')} ${chalk.white('States whether we want to compress or decompress our input')}
+        ${chalk.green('mode:\t')} ${chalk.cyan('compress, decompress, or display - ')} ${chalk.white('States whether we want to compress or decompress our input')}
         ${chalk.green('input:\t')} ${chalk.cyan('file path - ')} ${chalk.white('Path to the input file')}
         ${chalk.green('shades:\t')} ${chalk.cyan('integer between 2-16 - ')} ${chalk.white('How many shades of grey should we be processing')}
         ${chalk.green('width:\t')} ${chalk.cyan('integer - ')} ${chalk.white('The pixel width of the input image')}
@@ -82,7 +78,6 @@ const parseAndExecute = (parsedArgs) => {
  * This is where execution starts
  */
 const main = (parsedArgs) => {
-    showIntro();
     const executionReturnCode = parseAndExecute(parsedArgs);
     
     if (executionReturnCode !== EXECUTION_RETURN_SUCCESS) {
