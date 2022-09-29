@@ -1,8 +1,8 @@
 'use strict';
 const chalk = require('chalk');
 
-const { executeCompression, executeDecompression } = require('./compressionRunner');
-const { checkIntParam } = require('./paramHelper');
+const { executeCompression, executeDecompression, checkParamsForCompression } = require('./compressionRunner');
+const { executePrintImage, checkParamsForDisplay } = require('./display');
 
 const EXECUTION_RETURN_ERROR_PARAMS = -1;
 const EXECUTION_RETURN_SUCCESS = 0;
@@ -37,6 +37,7 @@ const showIntro = () => {
     
 }
 
+
 /**
  * Parses the params and calls the appropriate compress/decompress runner
  * @param {dictionary} parsedArgs 
@@ -44,49 +45,31 @@ const showIntro = () => {
  */
 const parseAndExecute = (parsedArgs) => {
 
-    if (!(parsedArgs.mode && parsedArgs.input && parsedArgs.shades && parsedArgs.width && parsedArgs.height)) {
-        showHelp('All parameters are mandatory');
-        console.log(JSON.stringify(parsedArgs));
-        return EXECUTION_RETURN_ERROR_PARAMS;
-    }
-
-    //Check shades are correct
-    const shadeCheck = checkIntParam(parsedArgs.shades, 2, 16);
-    if (shadeCheck.valid) {
-        //copy the value into our execution params
-        parsedArgs.shades = shadeCheck.parsedValue
-    } else {
-        showHelp('The shades value must be a whole number between 2 and 16');
-        return EXECUTION_RETURN_ERROR_PARAMS;
-    }
-
-    //Check width is correct
-    const widthCheck = checkIntParam(parsedArgs.width, 1, 1000);
-    if (widthCheck.valid) {
-        //copy the value into our execution params
-        parsedArgs.width = widthCheck.parsedValue
-    } else {
-        showHelp('The width value must be a whole number between 1 and 1000');
-        return EXECUTION_RETURN_ERROR_PARAMS;
-    }
-
-    //Check height is correct
-    const heightCheck = checkIntParam(parsedArgs.height, 1, 1000);
-    if (heightCheck.valid) {
-        //copy the value into our execution params
-        parsedArgs.height = heightCheck.parsedValue
-    } else {
-        showHelp('The height value must be a whole number between 1 and 1000');
-        return EXECUTION_RETURN_ERROR_PARAMS;
-    }
-
     //Determine which mode we are in - compress / decompress
     switch (parsedArgs.mode?.toLowerCase()) {
         case 'compress':
+            const compressionParamsValid = checkParamsForCompression(parsedArgs);
+            if (!compressionParamsValid.valid) {
+                showHelp(compressionParamsValid.message);
+                return EXECUTION_RETURN_ERROR_PARAMS;
+            }
             executeCompression(parsedArgs);
             break;
         case 'decompress':
+            const decompressionParamsValid = checkParamsForCompression(parsedArgs);
+            if (!decompressionParamsValid.valid) {
+                showHelp(decompressionParamsValid.message);
+                return EXECUTION_RETURN_ERROR_PARAMS;
+            }
             executeDecompression(parsedArgs);
+            break;
+        case 'display':
+            const displayParamsValid = checkParamsForDisplay(parsedArgs);
+            if (!displayParamsValid.valid) {
+                showHelp(displayParamsValid.message);
+                return EXECUTION_RETURN_ERROR_PARAMS;
+            }
+            executePrintImage(parsedArgs);
             break;
         default:
             showHelp('The mode parameter must be one of compress or decompress');
@@ -99,7 +82,6 @@ const parseAndExecute = (parsedArgs) => {
  * This is where execution starts
  */
 const main = (parsedArgs) => {
-    console.log('parsed args', parsedArgs)
     showIntro();
     const executionReturnCode = parseAndExecute(parsedArgs);
     

@@ -1,4 +1,7 @@
 const { compressMono, decompressMono } = require('../main/compressionEngine');
 
-test('dummy', async () => {
+test('Test compressMono', async () => {
+})
+
+test('Test decompressMono', async () => {
 })

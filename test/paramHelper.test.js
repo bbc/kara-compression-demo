@@ -1,6 +1,6 @@
-const { checkIntParam } = require('../main/paramHelper');
+const { checkIntParam, checkFileParam } = require('../main/paramHelper');
 
-test('Int out of range', async () => {
+test('Test integer param parser', async () => {
     //Too big
     var parseResult = checkIntParam('101', 10, 100);
     expect(parseResult.valid).toStrictEqual(false);
@@ -13,4 +13,15 @@ test('Int out of range', async () => {
     parseResult = checkIntParam('50', 10, 100);
     expect(parseResult.valid).toStrictEqual(true);
     expect(parseResult.parsedValue).toStrictEqual(50);
+});
+
+
+test('Test filereader', async () => {
+    //File does not exist
+    var checkResult = checkFileParam('blah');
+    expect(checkResult.valid).toStrictEqual(false);
+
+    checkResult = checkFileParam('./sample-images/testcard.pgm-240-180-16.lee');
+    expect(checkResult.valid).toStrictEqual(true);
+    expect(checkResult.contents.length).toStrictEqual(43201);
 });
