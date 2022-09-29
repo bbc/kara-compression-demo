@@ -35,7 +35,7 @@ const decompress = ({inputImage}) => {
     var currentColor = 0;
     for (var i = 0 ; i < len ; i++) {
         //Check the input is in the range 0-f
-        if (!/^([a-fA-F0-9])$/.test(compressedImage[i])) {
+        if (!/^([a-fA-F0-9]*)$/.test(compressedImage[i])) {
             throw `Invalid compressed input ${compressedImage[i]}`;
         }
         const encodedNumber = parseInt(compressedImage[i], 16)
