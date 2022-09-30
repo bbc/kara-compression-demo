@@ -27,8 +27,22 @@ const executePrintImage = ({inputImage, width, height, shades}) => {
  * @returns An html hex color string (including #)
  */
 const shadeToRgb = (pixelColor, shades) => {
-    //TODO
-    return '#AAAAAA';
+    if (pixelColor === '0') {
+        return '#000000'
+    }
+    if (parseInt(pixelColor, 16) ===  shades-1) {
+        return '#ffffff'
+    }
+
+    /*
+    determine 1 number from 0 to 255
+    hex((255/shades) * pixelColor)
+    */
+
+    const pixelColorInt = parseInt(pixelColor, 16);
+    const greyComponent = (Math.floor(255/(shades-1)) * pixelColorInt).toString(16);
+
+    return `#${greyComponent.repeat(3)}`;
 }
 
 /**
