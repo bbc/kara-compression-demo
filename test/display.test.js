@@ -3,7 +3,7 @@ const { forTest } = require('../main/display');
 test('Test shade to rgb', async () => {
 
     var rgb = forTest.shadeToRgb('0', 16);
-    expect(rgb).toStrictEqual('#000');
+    expect(rgb).toStrictEqual('#000000');
 
     rgb = forTest.shadeToRgb('F', 16);
     expect(rgb).toStrictEqual('#ffffff');

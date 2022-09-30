@@ -32,7 +32,7 @@ const shadeToRgb = (pixelColor, shades) => {
     
     const greyProportion = inputAsInt / (shades-1);
     
-    const greyHex = Math.floor(0xFF * greyProportion).toString(16);
+    const greyHex = Math.floor(0xFF * greyProportion).toString(16).padStart(2, '0');
     
     const colourForCell = `#${greyHex}${greyHex}${greyHex}`
     
