@@ -1,12 +1,12 @@
-const compressMono = ({inputImage}) => {
+const compress = ({inputImage}) => {
     return '';
 }
 
-const decompressMono = ({inputImage}) => {
+const decompress = ({inputImage}) => {
     return '';
 }
 
 module.exports = {
-    compressMono,
-    decompressMono,
+    compress,
+    decompress,
 }

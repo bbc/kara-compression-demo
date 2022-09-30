@@ -1,3 +1,4 @@
+const chalk = require('chalk');
 const { checkIntParam, checkFileParam } = require('./paramHelper');
 
 /**
@@ -7,10 +8,17 @@ const { checkIntParam, checkFileParam } = require('./paramHelper');
  * @param {int} width 
  * @param {int} height 
  */
-const executePrintImage = ({inputImage, width, height}) => {
-    console.log('display todo')
-    //TODO
-    console.log(inputImage.length);
+const executePrintImage = ({inputImage, width, height, shades}) => {
+    var imageArray = inputImage.split('');
+
+    var pos = 0;
+    for (var y = 0 ; y < height ; y++) {
+        for (var x = 0 ; x < width ; x++) {
+            const pixelColor = shadeToRgb(imageArray[pos++], shades);
+            process.stdout.write(chalk.hex(pixelColor)('█'));
+        }
+        console.log();
+    }
 }
 
 /**

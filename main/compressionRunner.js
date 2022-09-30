@@ -1,4 +1,6 @@
 const { compress, decompress } = require('./compressionEngine');
+const { executePrintImage } = require('./display');
+
 const { checkIntParam, checkFileParam } = require('./paramHelper');
 
 /**
@@ -15,7 +17,11 @@ const executeCompression = (compressionParams) => {
 const executeDecompression = (compressionParams) => {
     const uncompressedImageString = decompress(compressionParams);
 
-    console.log(uncompressedImageString);
+    if (compressionParams.display) {
+        executePrintImage({...compressionParams, inputImage: uncompressedImageString});
+    } else {
+        console.log(uncompressedImageString);
+    }
 }
 
 /**
